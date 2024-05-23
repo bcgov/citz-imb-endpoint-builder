@@ -1,0 +1,19 @@
+{
+  "name": "citz-imb-express-typeorm",
+  "version": "1.0.0-alpha.1",
+  "description": "Common code to create API endpoints for Express applications using TypeORM",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bcgov/citz-imb-express-typeorm.git"
+  },
+  "author": "CITZ IMB Common Code <citz.codemvp@gov.bc.ca>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/bcgov/citz-imb-express-typeorm/issues"
+  },
+  "homepage": "https://github.com/bcgov/citz-imb-express-typeorm#readme",
+}
