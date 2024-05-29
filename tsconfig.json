@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "outDir": "./build",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "strict": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "exactOptionalPropertyTypes": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src", "__tests__", "package.json"],
+  "exclude": ["node_modules", "build", "coverage"]
+}
