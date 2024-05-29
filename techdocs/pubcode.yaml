@@ -1,0 +1,10 @@
+version: 1
+data_management_roles:
+  product_owner: Laura Benson
+product_information:
+  ministry: CITZ
+  product_acronym:
+  product_description: An npm package offers a DRY way to implement express API endpoints by use of a factory design pattern.
+  product_name: citz-imb-express-typeorm
+product_technology_information:
+  hosting_platforms: Not-Applicable
