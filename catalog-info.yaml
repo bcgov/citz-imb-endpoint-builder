@@ -2,7 +2,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: citz-imb-express-typeorm-npm-package
-  title: CITZ IMB SSO React (NPM Package)
+  title: CITZ IMB Express TypeORM (NPM Package)
   description: An npm package offers a DRY way to implement express API endpoints by use of a factory design pattern.
   annotations:
     github.com/project-slug: bcgov/citz-imb-express-typeorm
