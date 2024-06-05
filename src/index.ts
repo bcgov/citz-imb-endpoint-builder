@@ -1,1 +1,1 @@
-export * from './entities/BaseEntity.class'
+export * from './entities/BaseEntity.class';
