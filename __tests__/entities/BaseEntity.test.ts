@@ -1,4 +1,4 @@
-import { BaseEntity } from '../../src/entities/BaseEntity.class';
+import { BaseEntity } from '@/entities/BaseEntity.class';
 
 describe('BaseEntity', () => {
   let entity: BaseEntity;
