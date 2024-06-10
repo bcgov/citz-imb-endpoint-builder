@@ -1,6 +1,6 @@
 {
-  "name": "citz-imb-express-typeorm",
-  "version": "1.0.0",
+  "name": "citz-imb-endpoint-builder",
+  "version": "0.0.1",
   "description": "Common code to create API endpoints for Express applications using TypeORM",
   "author": "CITZ IMB Common Code <citz.codemvp@gov.bc.ca>",
   "license": "Apache-2.0",
@@ -26,7 +26,8 @@
   "dependencies": {
     "cookie-parser": "1.4.6",
     "cors": "2.8.5",
-    "express": "4.19.2"
+    "express": "4.19.2",
+    "typeorm": "0.3.20"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "25.0.7",

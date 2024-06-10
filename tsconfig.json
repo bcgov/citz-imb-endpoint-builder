@@ -16,7 +16,8 @@
     "exactOptionalPropertyTypes": true,
     "removeComments": true,
     "sourceMap": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "experimentalDecorators": true
   },
   "include": ["src", "__tests__", "package.json"],
   "exclude": ["node_modules", "build", "coverage"]
