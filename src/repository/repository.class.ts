@@ -1,22 +1,25 @@
-import { DataSource, EntityTarget, Repository as ORMRepository, ObjectLiteral } from 'typeorm';
+import { DataSource, EntitySchema, Repository as ORMRepository } from 'typeorm';
 
-export class Repository<TEntity extends ObjectLiteral> {
-  private repository: ORMRepository<TEntity>;
+export class Repository<TEntity> {
+  private repository: ORMRepository<EntitySchema<TEntity>>;
 
-  getAllItems: () => Promise<TEntity[]>;
+  getAllItems: () => Promise<EntitySchema<TEntity>[]>;
 
-  getItemById: (_id: string) => Promise<TEntity | null>;
+  getItemById: (_id: string) => Promise<EntitySchema<TEntity> | null>;
 
-  getItemByWhere: (_where: object) => Promise<TEntity | null>;
+  getItemByWhere: (_where: object) => Promise<EntitySchema<TEntity> | null>;
 
-  createItem: (_item: TEntity) => Promise<TEntity>;
+  createItem: (_item: EntitySchema<TEntity>) => Promise<EntitySchema<TEntity>>;
 
-  updateItem: (_id: string, _item: TEntity) => Promise<TEntity | undefined>;
+  updateItem: (
+    _id: string,
+    _item: EntitySchema<TEntity>,
+  ) => Promise<EntitySchema<TEntity> | undefined>;
 
   deleteItem: (_id: string) => Promise<void>;
 
-  constructor(entity: TEntity, dataSource: DataSource) {
-    this.repository = dataSource.getRepository(entity as unknown as EntityTarget<TEntity>);
+  constructor(entity: EntitySchema, dataSource: DataSource) {
+    this.repository = dataSource.getRepository(entity);
 
     this.getAllItems = async () => await this.repository.find();
 
