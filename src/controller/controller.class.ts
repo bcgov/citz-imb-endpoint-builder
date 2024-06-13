@@ -30,7 +30,7 @@ export class Controller<TEntity> {
     this.getItemById = errorWrapper(async (req: Request, res: Response) => {
       const item = await service.getItemById(req.params.id);
 
-      if (!item) return res.status(httpStatusCode.BAD_REQUEST).json({ message: 'Item not found' });
+      if (!item) return res.status(httpStatusCode.NOT_FOUND).json({ message: 'Item not found' });
 
       res.status(httpStatusCode.OK).json(item);
     });
