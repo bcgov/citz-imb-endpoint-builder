@@ -1,6 +1,5 @@
 import { createController } from '@/controller';
 import { createRouter } from '@/router';
-// import { Service } from '@/service';
 import { createRepository } from '@/repository';
 import express from 'express';
 import { DataSource } from 'typeorm';
