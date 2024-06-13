@@ -57,12 +57,12 @@ export class Service<TEntity> {
     };
 
     this.updateItem = async (id: string, item: TEntity) => {
-      const response = this.repository.updateItem(id, item as unknown as EntitySchema<TEntity>);
+      const response = this.repository.updateItemById(id, item as unknown as EntitySchema<TEntity>);
       return this.formatResponse<TEntity>(response as TEntity);
     };
 
     this.deleteItem = async (id: string) => {
-      const response = this.repository.deleteItem(id);
+      const response = this.repository.deleteItemById(id);
       return this.formatResponse<TEntity>(response as TEntity);
     };
   }
