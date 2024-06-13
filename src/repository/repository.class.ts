@@ -18,8 +18,10 @@ export class Repository<TEntity> {
 
   deleteItem: (_id: string) => Promise<void>;
 
-  constructor(entity: EntitySchema, dataSource: DataSource) {
-    this.repository = dataSource.getRepository(entity);
+  constructor(entity: TEntity, dataSource: DataSource) {
+    this.repository = dataSource.getRepository(entity as EntitySchema<TEntity>) as ORMRepository<
+      EntitySchema<TEntity>
+    >;
 
     this.getAllItems = async () => await this.repository.find();
 
