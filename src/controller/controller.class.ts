@@ -59,7 +59,7 @@ export class Controller<TEntity> {
       const updatedItem = await service.updateItem(req.params.id, req.body);
 
       if (!updatedItem)
-        return res.status(httpStatusCode.BAD_REQUEST).json({ message: 'Item not found' });
+        return res.status(httpStatusCode.NOT_FOUND).json({ message: 'Item not found' });
 
       res.status(httpStatusCode.OK).json(updatedItem);
     });
