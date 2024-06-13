@@ -13,9 +13,9 @@ export class Controller<TEntity> {
 
   createItems: (_req: Request, _res: Response, _next: NextFunction) => Promise<void>;
 
-  updateItem: (_req: Request, _res: Response, _next: NextFunction) => Promise<void>;
+  updateItemById: (_req: Request, _res: Response, _next: NextFunction) => Promise<void>;
 
-  deleteItem: (_req: Request, _res: Response, _next: NextFunction) => Promise<void>;
+  deleteItemById: (_req: Request, _res: Response, _next: NextFunction) => Promise<void>;
 
   constructor(service: Service<TEntity>) {
     this.getAllItems = errorWrapper(async (req: Request, res: Response) => {
@@ -55,7 +55,7 @@ export class Controller<TEntity> {
       res.status(httpStatusCode.CREATED).json(createdItems);
     });
 
-    this.updateItem = errorWrapper(async (req: Request, res: Response) => {
+    this.updateItemById = errorWrapper(async (req: Request, res: Response) => {
       const updatedItem = await service.updateItem(req.params.id, req.body);
 
       if (!updatedItem)
@@ -64,7 +64,7 @@ export class Controller<TEntity> {
       res.status(httpStatusCode.OK).json(updatedItem);
     });
 
-    this.deleteItem = errorWrapper(async (req: Request, res: Response) => {
+    this.deleteItemById = errorWrapper(async (req: Request, res: Response) => {
       await service.deleteItem(req.params.id);
 
       res.status(httpStatusCode.NO_CONTENT).json({ message: 'Item deleted successfully' });

@@ -7,8 +7,8 @@ export const createRouter = <TEntity>(dataController: Controller<TEntity>) => {
   router.get('/', dataController.getAllItems);
   router.get('/:id', dataController.getItemById);
   router.post('/', dataController.createItem);
-  router.put('/:id', dataController.updateItem);
-  router.delete('/:id', dataController.deleteItem);
+  router.put('/:id', dataController.updateItemById);
+  router.delete('/:id', dataController.deleteItemById);
 
   return router;
 };
