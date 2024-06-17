@@ -1,14 +1,14 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: citz-imb-express-typeorm-npm-package
-  title: CITZ IMB Express TypeORM (NPM Package)
+  name: citz-imb-endpoint-builder-npm-package
+  title: CITZ IMB Endpoint Builder (NPM Package)
   description: An npm package offers a DRY way to implement express API endpoints by use of a factory design pattern.
   annotations:
-    github.com/project-slug: bcgov/citz-imb-express-typeorm
+    github.com/project-slug: bcgov/citz-imb-endpoint-builder
     backstage.io/techdocs-ref: dir:.
     bcgovpubcode.gov.bc.ca/ministry: CITZ
-    bcgovpubcode.gov.bc.ca/product_name: citz-imb-express-typeorm
+    bcgovpubcode.gov.bc.ca/product_name: citz-imb-endpoint-builder
     bcgovpubcode.gov.bc.ca/product_owner: Laura Benson
     developer.gov.bc.ca/source_template: default/docs-template-pr
 spec:
