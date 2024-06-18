@@ -1,4 +1,4 @@
-# BCGov Express Endpoint factory
+# BCGov Express Endpoint Builder
 
 [![Lifecycle:Experimental](https://img.shields.io/badge/Lifecycle-Experimental-339999)](Redirect-URL)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
@@ -10,7 +10,7 @@
 
 # `Introduction`
 
-This npm package offers a DRY approach to implementing Express API endpoints using a factory design pattern.  This reduces the amount of boilerplate code required to implement API endpoints and allows for a more consistent and maintainable codebase.
+This npm package offers a DRY approach to implementing Express API endpoints using a factory design pattern. This reduces the amount of boilerplate code required to implement API endpoints and allows for a more consistent and maintainable codebase.
 
 <br />
 
@@ -38,3 +38,11 @@ Use the links below to help you understand the codebase better.
 - [Publishing a New Release Version]
 
 <br />
+
+<!-- Link References -->
+[CITZ IMB Common Code]: mailto:citz.codemvp@gov.bc.ca?subject=SSO%20Packages%20Support
+[Documentation]: https://developer.gov.bc.ca/docs/default/component/citz-imb-endpoint-builder-npm-package
+[Directory Structure]: https://github.com/bcgov/citz-imb-endpoint-builder/wiki/Directory-Structure
+[Scripts]: https://github.com/bcgov/citz-imb-endpoint-builder/wiki/Scripts
+[Publishing a New Release Version]: https://citz-imb.atlassian.net/l/cp/rj2F0y2n
+[Package Management Plan]: https://citz-imb.atlassian.net/l/cp/jcxjEmBf

@@ -1,0 +1,18 @@
+site_name: 'CITZ IMB Endpoint Builder (NPM Package)'
+site_description: "An npm package that offers a DRY approach to implementing Express API endpoints using a factory design pattern. This reduces the amount of boilerplate code required to implement API endpoints and allows for a more consistent and maintainable codebase."
+docs_dir: 'techdocs/docs'
+repo_url: 'https://github.com/bcgov/citz-imb-endpoint-builder'
+edit_uri: edit/main/techdocs/docs
+nav:
+  - Introduction: index.md
+  - Getting Started:
+      - Installing the Package: getting-started/installing-the-package.md
+  - Using the Package:
+      - Module Exports: using-the-package/module-exports.md
+      - TypeScript Types: using-the-package/typescript-types.md
+
+plugins:
+  - techdocs-core
+  - git-revision-date-localized
+markdown_extensions:
+  - md_in_html
