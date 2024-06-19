@@ -20,6 +20,7 @@
     "tag:rc": "node scripts/bump-version.mjs add-tag rc",
     "remove-tag": "node scripts/bump-version.mjs remove-tag",
     "test": "jest",
+    "test:watch": "jest --watchAll --verbose",
     "coverage": "jest --coverage",
     "coverage:open": "node scripts/run-coverage-and-open-report.mjs"
   },
