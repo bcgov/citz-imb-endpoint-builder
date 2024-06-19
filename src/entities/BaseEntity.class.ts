@@ -2,8 +2,6 @@ import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } fr
 
 @Entity()
 export class BaseEntity {
-  name!: string;
-
   @PrimaryGeneratedColumn('uuid')
   id!: number;
 
