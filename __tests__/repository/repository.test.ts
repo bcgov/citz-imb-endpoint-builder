@@ -1,6 +1,5 @@
 import { Repository, createRepository } from '@/repository';
 import { mockDataSource, MockEntity, testItem, testItems, testUUID } from '__tests__/__mocks__';
-import { EntitySchema } from 'typeorm';
 
 describe('Repository', () => {
   let testRepository: Repository<MockEntity>;
@@ -55,7 +54,7 @@ describe('Repository', () => {
   });
 
   it('should create an item', async () => {
-    const item = await testRepository.createItem(testItem as unknown as EntitySchema<MockEntity>);
+    const item = await testRepository.createItem(testItem);
 
     expect(item).toEqual(testItem);
   });
@@ -63,16 +62,18 @@ describe('Repository', () => {
   describe('update an item by id', () => {
     it('when item exists should return updated item', async () => {
       const updatedItem = await testRepository.updateItemById(testUUID, {
+        ...testItem,
         title: 'updated',
-      } as unknown as EntitySchema<MockEntity>);
+      });
 
       expect(updatedItem).toEqual({ ...testItem, title: 'updated' });
     });
 
     it('when item does not exist should return null', async () => {
       const updatedItem = await testRepository.updateItemById('NOTtestUUID', {
+        ...testItem,
         title: 'updated',
-      } as unknown as EntitySchema<MockEntity>);
+      });
 
       expect(updatedItem).toBeNull();
     });
