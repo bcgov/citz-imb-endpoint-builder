@@ -3,7 +3,7 @@ import { createService, Service, IFormattedResponse } from '@/service';
 import { mockDataSource, MockEntity, testItem, testItems, testUUID } from '__tests__/__mocks__';
 // import { EntitySchema } from 'typeorm';
 
-describe('Servive', () => {
+describe('Service', () => {
   let testRepository: Repository<MockEntity>;
   let testService: Service<MockEntity>;
   let formattedResponseAll: IFormattedResponse<MockEntity>;
