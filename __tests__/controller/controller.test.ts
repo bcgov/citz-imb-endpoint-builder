@@ -116,7 +116,7 @@ describe('controller', () => {
   });
 
   describe('createItem', () => {
-    it('given there is an item, should return item', async () => {
+    it('should return created item', async () => {
       mockRequest.body = { title: 'Test Title' };
       mockService.createItem = jest
         .fn()
@@ -128,6 +128,32 @@ describe('controller', () => {
       expect(mockResponse.status).toHaveBeenCalledWith(201);
       expect(mockResponse.json).toHaveBeenCalledWith({
         data: [{ id: 'id11', title: 'Test Title' }],
+      });
+    });
+  });
+
+  describe('createItems', () => {
+    it('should return created items', async () => {
+      mockRequest.body = [{ title: 'Test Title' }, { title: 'Test Title 2' }];
+      mockService.createItems = jest.fn().mockResolvedValue({
+        data: [
+          { id: 'id11', title: 'Test Title' },
+          { id: 'id22', title: 'Test Title 2' },
+        ],
+      });
+
+      await testController.createItems(mockRequest, mockResponse, NextFunction);
+
+      expect(mockService.createItems).toHaveBeenCalledWith([
+        { title: 'Test Title' },
+        { title: 'Test Title 2' },
+      ]);
+      expect(mockResponse.status).toHaveBeenCalledWith(201);
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        data: [
+          { id: 'id11', title: 'Test Title' },
+          { id: 'id22', title: 'Test Title 2' },
+        ],
       });
     });
   });
