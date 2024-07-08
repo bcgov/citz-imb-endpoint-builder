@@ -8,16 +8,17 @@ import { BaseEntity, createService, Service } from '..';
 export class Endpoint<TEntity extends BaseEntity> {
   router: express.Router;
   routes: express.Router;
-  repository: Repository<TEntity>;
-  service: Service<TEntity>;
-  controller: Controller<TEntity>;
-  entity: TEntity;
-  dataSource: DataSource;
+  private repository: Repository<TEntity>;
+  private service: Service<TEntity>;
+  private controller: Controller<TEntity>;
   path: string;
 
-  constructor(entity: TEntity, dataSource: DataSource) {
+  constructor(
+    private entity: TEntity,
+    private dataSource: DataSource,
+  ) {
     this.entity = entity;
-    this.path = entity.name.toLowerCase();
+    this.path = entity.constructor.name.toLowerCase();
     this.dataSource = dataSource;
     this.repository = createRepository<TEntity>(entity, dataSource);
     this.service = createService<TEntity>(this.repository);
