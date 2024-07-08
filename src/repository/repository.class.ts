@@ -37,6 +37,7 @@ export class Repository<TEntity> {
       return result as TEntity;
     };
 
+    // TODO: TypeORM over-writes existing items, need to fix this
     this.createItem = async (item) =>
       (await this.repository.save(item as EntitySchema<TEntity>)) as TEntity;
 

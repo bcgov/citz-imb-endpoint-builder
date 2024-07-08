@@ -19,49 +19,51 @@ export class Controller<TEntity> {
 
   constructor(service: Service<TEntity>) {
     this.getAllItems = errorWrapper(async (req: Request, res: Response) => {
-      const allItems = await service.getAllItems();
+      const response = await service.getAllItems();
 
-      if (Array.isArray(allItems.data) && allItems.data.length === 0)
-        return res.status(HTTP_STATUS_CODES.NO_CONTENT).json(allItems);
+      if (Array.isArray(response.data) && response.data.length === 0)
+        return res.status(HTTP_STATUS_CODES.NO_CONTENT).json(response);
 
-      res.status(HTTP_STATUS_CODES.OK).json(allItems);
+      res.status(HTTP_STATUS_CODES.OK).json(response);
     });
 
     this.getItemById = errorWrapper(async (req: Request, res: Response) => {
-      const item = await service.getItemById(req.params.id);
+      const response = await service.getItemById(req.params.id);
 
-      if (!item) return res.status(HTTP_STATUS_CODES.NOT_FOUND).json({ message: 'Item not found' });
+      if (Array.isArray(response.data) && response.data.length === 0)
+        return res.status(HTTP_STATUS_CODES.NOT_FOUND).json({ message: 'Item not found' });
 
-      res.status(HTTP_STATUS_CODES.OK).json(item);
+      res.status(HTTP_STATUS_CODES.OK).json(response);
     });
 
     this.getItemByWhere = errorWrapper(async (req: Request, res: Response) => {
-      const item = await service.getItemByWhere(req.body);
+      const response = await service.getItemByWhere(req.body);
 
-      if (!item) return res.status(HTTP_STATUS_CODES.NOT_FOUND).json({ message: 'Item not found' });
+      if (Array.isArray(response.data) && response.data.length === 0)
+        return res.status(HTTP_STATUS_CODES.NOT_FOUND).json({ message: 'Item not found' });
 
-      res.status(HTTP_STATUS_CODES.OK).json(item);
+      res.status(HTTP_STATUS_CODES.OK).json(response);
     });
 
     this.createItem = errorWrapper(async (req: Request, res: Response) => {
-      const createdItem = await service.createItem(req.body);
+      const response = await service.createItem(req.body);
 
-      res.status(HTTP_STATUS_CODES.CREATED).json(createdItem);
+      res.status(HTTP_STATUS_CODES.CREATED).json(response);
     });
 
     this.createItems = errorWrapper(async (req: Request, res: Response) => {
-      const createdItems = await service.createItems(req.body);
+      const response = await service.createItems(req.body);
 
-      res.status(HTTP_STATUS_CODES.CREATED).json(createdItems);
+      res.status(HTTP_STATUS_CODES.CREATED).json(response);
     });
 
     this.updateItemById = errorWrapper(async (req: Request, res: Response) => {
-      const updatedItem = await service.updateItemById(req.params.id, req.body);
+      const response = await service.updateItemById(req.params.id, req.body);
 
-      if (!updatedItem)
+      if (Array.isArray(response.data) && response.data.length === 0)
         return res.status(HTTP_STATUS_CODES.NOT_FOUND).json({ message: 'Item not found' });
 
-      res.status(HTTP_STATUS_CODES.OK).json(updatedItem);
+      res.status(HTTP_STATUS_CODES.OK).json(response);
     });
 
     this.deleteItemById = errorWrapper(async (req: Request, res: Response) => {

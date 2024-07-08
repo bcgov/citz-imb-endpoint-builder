@@ -6,8 +6,8 @@ export interface IFormattedResponse<TEntity> {
 }
 export class Service<TEntity> {
   protected formatResponse = (data: TEntity | TEntity[] | null): IFormattedResponse<TEntity> => {
-    if (data === null) data = [];
-    if (!Array.isArray(data)) data = [data];
+    if (data === null) data = [] as TEntity[];
+    if (!Array.isArray(data)) data = [data] as TEntity[];
 
     return { data };
   };
