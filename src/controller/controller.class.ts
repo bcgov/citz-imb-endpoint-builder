@@ -56,7 +56,7 @@ export class Controller<TEntity> {
     });
 
     this.updateItemById = errorWrapper(async (req: Request, res: Response) => {
-      const updatedItem = await service.updateItem(req.params.id, req.body);
+      const updatedItem = await service.updateItemById(req.params.id, req.body);
 
       if (!updatedItem)
         return res.status(httpStatusCode.NOT_FOUND).json({ message: 'Item not found' });
@@ -65,7 +65,7 @@ export class Controller<TEntity> {
     });
 
     this.deleteItemById = errorWrapper(async (req: Request, res: Response) => {
-      await service.deleteItem(req.params.id);
+      await service.deleteItemById(req.params.id);
 
       res.status(httpStatusCode.NO_CONTENT).json({ message: 'Item deleted successfully' });
     });
