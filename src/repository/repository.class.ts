@@ -13,7 +13,7 @@ export class Repository<TEntity> {
 
   public updateItemById: (_id: string, _item: TEntity) => Promise<TEntity | null>;
 
-  deleteItemById: (_id: string) => Promise<null>;
+  public deleteItemById: (_id: string) => Promise<null>;
 
   constructor(
     private readonly entity: TEntity,
