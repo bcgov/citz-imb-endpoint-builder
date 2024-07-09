@@ -26,28 +26,27 @@ export class Repository<TEntity> {
     this.getAllItems = async () => (await this.repository.find()) as TEntity[];
 
     this.getItemById = async (id) => {
-      const result = await this.repository.findOne({ where: { id } } as object);
-      if (!result) return null;
-      return result as TEntity;
+      const findOneResult = await this.repository.findOne({ where: { id } } as object);
+      if (!findOneResult) return null;
+      return findOneResult as TEntity;
     };
 
     this.getItemByWhere = async (where) => {
-      const result = await this.repository.findOne({ where });
-      if (!result) return null;
-      return result as TEntity;
+      const findOneResult = await this.repository.findOne({ where });
+      if (!findOneResult) return null;
+      return findOneResult as TEntity;
     };
 
-    // TODO: TypeORM over-writes existing items, need to fix this
     this.createItem = async (item) =>
       (await this.repository.save(item as EntitySchema<TEntity>)) as TEntity;
 
     this.updateItemById = async (id, item) => {
-      const existingItem = await this.repository.findOne({ where: { id } } as object);
+      const findOneResult = await this.repository.findOne({ where: { id } } as object);
 
-      if (!existingItem) return null;
+      if (!findOneResult) return null;
 
-      Object.assign(existingItem, item);
-      return (await this.repository.save(existingItem)) as TEntity;
+      Object.assign(findOneResult, item);
+      return (await this.repository.save(findOneResult)) as TEntity;
     };
 
     this.deleteItemById = async (id) => {

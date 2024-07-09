@@ -19,44 +19,46 @@ describe('Repository', () => {
     expect(testRepository).toHaveProperty('deleteItemById');
   });
 
-  it('should get all items', async () => {
-    const items = await testRepository.getAllItems();
+  describe('getAllItems', () => {
+    it('should get all items', async () => {
+      const retrievedItems = await testRepository.getAllItems();
 
-    expect(items).toEqual(testItems);
+      expect(retrievedItems).toEqual(testItems);
+    });
   });
 
   describe('getItemById', () => {
     it('when exists should return the item', async () => {
-      const item = await testRepository.getItemById(testUUID);
+      const retrievedItem = await testRepository.getItemById(testUUID);
 
-      expect(item).toBe(testItem);
+      expect(retrievedItem).toBe(testItem);
     });
 
-    it('when does not exist should return', async () => {
-      const item = await testRepository.getItemById('NOTtestUUID');
+    it('when does not exist should return null', async () => {
+      const retrievedItem = await testRepository.getItemById('NOTtestUUID');
 
-      expect(item).toBeNull();
+      expect(retrievedItem).toBeNull();
     });
   });
 
   describe('getItemByWhere', () => {
     it('when exists should return the item', async () => {
-      const item = await testRepository.getItemByWhere({ id: testUUID });
+      const retrievedItem = await testRepository.getItemByWhere({ id: testUUID });
 
-      expect(item).toBe(testItem);
+      expect(retrievedItem).toBe(testItem);
     });
 
-    it('when does not exist should return', async () => {
-      const item = await testRepository.getItemByWhere({ id: 'NOTtestUUID' });
+    it('when does not exist should return null', async () => {
+      const retrievedItem = await testRepository.getItemByWhere({ id: 'NOTtestUUID' });
 
-      expect(item).toBeNull();
+      expect(retrievedItem).toBeNull();
     });
   });
 
   it('should create an item', async () => {
-    const item = await testRepository.createItem(testItem);
+    const retrievedItem = await testRepository.createItem(testItem);
 
-    expect(item).toEqual(testItem);
+    expect(retrievedItem).toEqual(testItem);
   });
 
   describe('update an item by id', () => {
@@ -80,8 +82,8 @@ describe('Repository', () => {
   });
 
   it('should delete an item by id', async () => {
-    const result = await testRepository.deleteItemById(testUUID);
+    const deletedItem = await testRepository.deleteItemById(testUUID);
 
-    expect(result).toBeNull();
+    expect(deletedItem).toBeNull();
   });
 });
