@@ -1,22 +1,12 @@
-import { Repository, createRepository } from '@/repository';
-import { createService, Service, IFormattedResponse } from '@/service';
-import { mockDataSource, MockEntity, testItem, testItems, testUUID } from '__tests__/__mocks__';
-// import { EntitySchema } from 'typeorm';
+import { createService, Service } from '@/service';
+import { mockData, MockEntity, mockRepository, mockResponse } from '__tests__/__mocks__';
 
 describe('Service', () => {
-  let testRepository: Repository<MockEntity>;
   let testService: Service<MockEntity>;
-  let formattedResponseAll: IFormattedResponse<MockEntity>;
-  let formattedResponseSingle: IFormattedResponse<MockEntity>;
-  let formattedResponseEmpty: IFormattedResponse<MockEntity>;
 
   beforeEach(() => {
     jest.clearAllMocks();
-    testRepository = createRepository<MockEntity>(new MockEntity(), mockDataSource);
-    testService = createService<MockEntity>(testRepository);
-    formattedResponseAll = { data: testItems };
-    formattedResponseSingle = { data: [testItem] };
-    formattedResponseEmpty = { data: [] };
+    testService = createService<MockEntity>(mockRepository);
   });
 
   it('should create a service', () => {
@@ -30,75 +20,80 @@ describe('Service', () => {
     expect(testService).toHaveProperty('deleteItemById');
   });
 
-  it('should get all items', async () => {
-    const items = await testService.getAllItems();
-
-    expect(items).toEqual(formattedResponseAll);
+  describe('getAllItems', () => {
+    it('should get all items', async () => {
+      const allItems = await testService.getAllItems();
+      expect(mockRepository.getAllItems).toHaveBeenCalled();
+      expect(allItems).toEqual(mockResponse.formatted.all);
+    });
   });
 
   describe('getItemById', () => {
     it('when exists should return the item', async () => {
-      const item = await testService.getItemById(testUUID);
-
-      expect(item).toStrictEqual(formattedResponseSingle);
+      const itemById = await testService.getItemById(mockData.testItems[0].id);
+      expect(mockRepository.getItemById).toHaveBeenCalledWith(mockData.testItems[0].id);
+      expect(itemById).toEqual(mockResponse.formatted.single);
     });
 
     it('when does not exist should return', async () => {
-      const item = await testService.getItemById('NOTtestUUID');
-
-      expect(item).toStrictEqual(formattedResponseEmpty);
+      const itemById = await testService.getItemById('NOTtestUUID');
+      expect(itemById).toEqual(mockResponse.formatted.none);
     });
   });
 
   describe('getItemByWhere', () => {
     it('when exists should return the item', async () => {
-      const item = await testService.getItemByWhere({ id: testUUID });
-
-      expect(item).toStrictEqual(formattedResponseSingle);
+      const itemByWhere = await testService.getItemByWhere({ id: mockData.testItems[0].id });
+      expect(mockRepository.getItemByWhere).toHaveBeenCalledWith({ id: mockData.testItems[0].id });
+      expect(itemByWhere).toStrictEqual(mockResponse.formatted.single);
     });
 
     it('when does not exist should return', async () => {
-      const item = await testService.getItemByWhere({ id: 'NOTtestUUID' });
-
-      expect(item).toStrictEqual(formattedResponseEmpty);
+      const itemByWhere = await testService.getItemByWhere({ id: 'NOTtestUUID' });
+      expect(itemByWhere).toStrictEqual(mockResponse.formatted.none);
     });
   });
 
-  it('should create an item', async () => {
-    const item = await testService.createItem(testItem);
-
-    expect(item).toStrictEqual(formattedResponseSingle);
+  describe('createItem', () => {
+    it('should create an item', async () => {
+      const createdItem = await testService.createItem(mockData.itemToCreate);
+      expect(mockRepository.createItem).toHaveBeenCalledWith(mockData.itemToCreate);
+      expect(createdItem).toStrictEqual(mockResponse.formatted.created);
+    });
   });
 
-  it('should create multiple items', async () => {
-    const items = await testService.createItems(testItems);
-
-    expect(items).toStrictEqual(formattedResponseAll);
+  describe('createItems', () => {
+    it('should create multiple items', async () => {
+      const createdItems = await testService.createItems(mockData.itemsToCreate);
+      expect(mockRepository.createItem).toHaveBeenCalledTimes(mockData.itemsToCreate.length);
+      expect(createdItems).toEqual(mockResponse.formatted.multipleCreated);
+    });
   });
 
-  describe('update an item by id', () => {
+  describe('updateItemById', () => {
     it('when item exists should return updated item', async () => {
-      const itemToUpdate = { ...testItem, title: 'updated' };
-      const updatedItem = await testService.updateItemById(testUUID, itemToUpdate);
-
-      const formattedUpdatedItem = { data: [itemToUpdate] };
-
-      expect(updatedItem).toStrictEqual(formattedUpdatedItem);
+      const updatedItem = await testService.updateItemById(
+        mockData.testItems[0].id,
+        mockData.itemToUpdate,
+      );
+      expect(mockRepository.updateItemById).toHaveBeenCalledWith(
+        mockData.testItems[0].id,
+        mockData.itemToUpdate,
+      );
+      expect(updatedItem).toStrictEqual(mockResponse.formatted.updated);
     });
 
     it('when item does not exist should return empty data', async () => {
-      const updatedItem = await testService.updateItemById('NOTtestUUID', {
-        ...testItem,
-        title: 'updated',
-      });
-
-      expect(updatedItem).toStrictEqual(formattedResponseEmpty);
+      const updatedItem = await testService.updateItemById('NOTtestUUID', mockData.itemToUpdate);
+      expect(updatedItem).toStrictEqual(mockResponse.formatted.none);
     });
   });
 
-  it('should delete an item by id', async () => {
-    const result = await testService.deleteItemById(testUUID);
-
-    expect(result).toStrictEqual(formattedResponseEmpty);
+  describe('deleteItemById', () => {
+    it('should delete an item by id', async () => {
+      const deleteItemByIdResult = await testService.deleteItemById(mockData.testItems[0].id);
+      expect(mockRepository.deleteItemById).toHaveBeenCalledWith(mockData.testItems[0].id);
+      expect(deleteItemByIdResult).toStrictEqual(mockResponse.formatted.none);
+    });
   });
 });
