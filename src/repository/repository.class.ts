@@ -1,4 +1,5 @@
 import { DataSource, EntitySchema, Repository as ORMRepository } from 'typeorm';
+import { TEntityWithoutId } from '@/types';
 
 export class Repository<TEntity> {
   private repository: ORMRepository<EntitySchema<TEntity>>;
@@ -9,9 +10,9 @@ export class Repository<TEntity> {
 
   public getItemByWhere: (_where: object) => Promise<TEntity | null>;
 
-  public createItem: (_item: TEntity) => Promise<TEntity>;
+  public createItem: (_item: TEntityWithoutId<TEntity>) => Promise<TEntity>;
 
-  public updateItemById: (_id: string, _item: TEntity) => Promise<TEntity | null>;
+  public updateItemById: (_id: string, _item: Partial<TEntity>) => Promise<TEntity | null>;
 
   public deleteItemById: (_id: string) => Promise<null>;
 
@@ -37,8 +38,7 @@ export class Repository<TEntity> {
       return findOneResult as TEntity;
     };
 
-    this.createItem = async (item) =>
-      (await this.repository.save(item as EntitySchema<TEntity>)) as TEntity;
+    this.createItem = async (item) => (await this.repository.save(item)) as TEntity;
 
     this.updateItemById = async (id, item) => {
       const findOneResult = await this.repository.findOne({ where: { id } } as object);

@@ -1,12 +1,16 @@
 import { DataSource } from 'typeorm';
-import { testItem, testItems } from './item.mock';
+import { mockData } from './item.mock';
 
 export const mockDataSource = {
   getRepository: jest.fn(() => {
     return {
-      find: jest.fn(() => testItems),
-      findOne: jest.fn((query) => (testItem.id === query.where.id ? testItem : null)),
-      save: jest.fn((item) => item),
+      find: jest.fn(() => mockData.testItems),
+      findOne: jest.fn(
+        (query) => mockData.testItems.find((item) => item.id === query.where.id) || null,
+      ),
+      save: jest.fn((item) =>
+        item.id ? { ...mockData.updatedItem, ...item } : mockData.createdItem,
+      ),
       delete: jest.fn(() => null),
     };
   }),
