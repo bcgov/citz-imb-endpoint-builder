@@ -13,7 +13,7 @@ const jestConfig: JestConfigWithTsJest = {
       },
     ],
   },
-  testPathIgnorePatterns: ['node_modules/', 'build/'],
+  testPathIgnorePatterns: ['node_modules/', 'build/', 'coverage/'],
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*.ts'],
   coveragePathIgnorePatterns: ['index.ts', 'config.ts'],
