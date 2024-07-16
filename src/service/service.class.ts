@@ -54,11 +54,9 @@ export class Service<TEntity> {
     this.createItems = async (items) => {
       const createdItems: TEntity[] = [];
 
-      if (Array.isArray(items)){
-        for (let i = 0; i < items.length; i++) {
-          const createdItem = await this.createItem(items[i]);
-          createdItems.push(createdItem.data[0]);
-        }
+      for (const item of items) {
+        const createdItem = await this.createItem(item);
+        createdItems.push(createdItem.data[0]);
       }
 
       return this.formatResponse(createdItems);
