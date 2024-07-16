@@ -12,7 +12,7 @@ export const mockRepository = {
   }),
   createItem: jest.fn().mockResolvedValue(mockData.createdItem),
   updateItemById: jest.fn((id, item) => {
-    return mockData.testItems.find((item) => item.id === id)
+    return mockData.testItems.find((testItem) => testItem.id === id)
       ? {
           ...mockData.updatedItem,
           id,
