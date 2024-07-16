@@ -14,8 +14,8 @@ export class Endpoint<TEntity extends BaseEntity> {
   path: string;
 
   constructor(
-    private entity: TEntity,
-    private dataSource: DataSource,
+    private readonly entity: TEntity,
+    private readonly dataSource: DataSource,
   ) {
     this.entity = entity;
     this.path = entity.constructor.name.toLowerCase();
