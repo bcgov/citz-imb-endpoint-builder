@@ -1,6 +1,6 @@
 import { HTTP_STATUS_CODES, errorWrapper } from '@bcgov/citz-imb-express-utilities';
 import { NextFunction, Request, Response } from 'express';
-import { IFormattedResponse, Service } from '../service/service.class';
+import { Service } from '../service/service.class';
 
 export class Controller<TEntity> {
   public getAllItems: (_req: Request, _res: Response, _next: NextFunction) => Promise<void>;
