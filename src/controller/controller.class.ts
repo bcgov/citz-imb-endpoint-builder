@@ -1,6 +1,6 @@
 import { HTTP_STATUS_CODES, errorWrapper } from '@bcgov/citz-imb-express-utilities';
 import { NextFunction, Request, Response } from 'express';
-import { Service } from '../service/service.class';
+import { IFormattedResponse, Service } from '../service/service.class';
 
 export class Controller<TEntity> {
   public getAllItems: (_req: Request, _res: Response, _next: NextFunction) => Promise<void>;
@@ -17,11 +17,14 @@ export class Controller<TEntity> {
 
   public deleteItemById: (_req: Request, _res: Response, _next: NextFunction) => Promise<void>;
 
+  private hasNoContent = (data: TEntity | TEntity[] | null): boolean =>
+    Array.isArray(data) && data.length === 0;
+
   constructor(private readonly service: Service<TEntity>) {
     this.getAllItems = errorWrapper(async (req: Request, res: Response) => {
       const allItems = await service.getAllItems();
 
-      if (Array.isArray(allItems.data) && allItems.data.length === 0)
+      if (this.hasNoContent(allItems.data))
         return res.status(HTTP_STATUS_CODES.NO_CONTENT).json(allItems);
 
       res.status(HTTP_STATUS_CODES.OK).json(allItems);
@@ -30,7 +33,7 @@ export class Controller<TEntity> {
     this.getItemById = errorWrapper(async (req: Request, res: Response) => {
       const itemById = await service.getItemById(req.params.id);
 
-      if (Array.isArray(itemById.data) && itemById.data.length === 0)
+      if (this.hasNoContent(itemById.data))
         return res.status(HTTP_STATUS_CODES.NOT_FOUND).json({ message: 'Item not found' });
 
       res.status(HTTP_STATUS_CODES.OK).json(itemById);
@@ -39,7 +42,7 @@ export class Controller<TEntity> {
     this.getItemByWhere = errorWrapper(async (req: Request, res: Response) => {
       const response = await service.getItemByWhere(req.body);
 
-      if (Array.isArray(response.data) && response.data.length === 0)
+      if (this.hasNoContent(response.data))
         return res.status(HTTP_STATUS_CODES.NOT_FOUND).json({ message: 'Item not found' });
 
       res.status(HTTP_STATUS_CODES.OK).json(response);
@@ -60,7 +63,7 @@ export class Controller<TEntity> {
     this.updateItemById = errorWrapper(async (req: Request, res: Response) => {
       const response = await service.updateItemById(req.params.id, req.body);
 
-      if (Array.isArray(response.data) && response.data.length === 0)
+      if (this.hasNoContent(response.data))
         return res.status(HTTP_STATUS_CODES.NOT_FOUND).json({ message: 'Item not found' });
 
       res.status(HTTP_STATUS_CODES.OK).json(response);

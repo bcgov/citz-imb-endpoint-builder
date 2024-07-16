@@ -55,8 +55,8 @@ export class Service<TEntity> {
       const createdItems: TEntity[] = [];
 
       for (let i = 0; i < items.length; i++) {
-        const createdItem = await repository.createItem(items[i]);
-        createdItems.push(createdItem);
+        const createdItem = await this.createItem(items[i]);
+        createdItems.push(createdItem.data[0]);
       }
 
       return this.formatResponse(createdItems);
