@@ -11,7 +11,7 @@ export interface createEndpointProps<TEntity> {
 export const createEndpoints = <TEntity extends BaseEntity>(
   props: createEndpointProps<TEntity>,
 ) => {
-  const endpoints = new Endpoint(new props.entity, props.dataSource);
+  const endpoints = new Endpoint(new props.entity(), props.dataSource);
 
   return endpoints;
 };
