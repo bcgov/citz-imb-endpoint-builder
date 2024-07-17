@@ -14,8 +14,8 @@ This npm package offers a DRY approach to implementing Express API endpoints usi
 
 <br />
 
-[![GitHub release](https://img.shields.io/github/v/release/bcgov/citz-imb-express-typeorm.svg)](https://GitHub.com/bcgov/citz-imb-express-typeorm/releases/)
-[![Npm package total downloads](https://badgen.net/npm/dt/@bcgov/citz-imb-express-typeorm)](https://www.npmjs.com/package/@bcgov/citz-imb-sso-react)
+[![GitHub release](https://img.shields.io/github/v/release/bcgov/citz-imb-endpoint-builder.svg)](https://GitHub.com/bcgov/citz-imb-express-typeorm/releases/)
+[![Npm package total downloads](https://badgen.net/npm/dt/@bcgov/citz-imb-endpoint-builder)](https://www.npmjs.com/package/@bcgov/citz-imb-endpoint-builder)
 [![GitHub stars](https://img.shields.io/github/stars/bcgov/citz-imb-express-typeorm.svg?style=social&label=Star&maxAge=2592000)](https://GitHub.com/bcgov/citz-imb-express-typeorm/stargazers/)
 
 ### `Get Started Here!`

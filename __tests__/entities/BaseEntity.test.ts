@@ -3,10 +3,12 @@ import { BaseEntity } from '@/entities/BaseEntity.class';
 describe('BaseEntity', () => {
   let entity: BaseEntity;
   let now: Date;
+  let uuid: string;
 
   beforeEach(() => {
     entity = new BaseEntity();
     now = new Date();
+    uuid = '59667271-9089-497f-a46b-98e1a19380c9';
   });
 
   it('should be able to create a new BaseEntity instance', () => {
@@ -14,8 +16,8 @@ describe('BaseEntity', () => {
   });
 
   it('should be able to set and get id', () => {
-    entity.id = 1;
-    expect(entity.id).toBe(1);
+    entity.id = uuid;
+    expect(entity.id).toBe(uuid);
   });
 
   it('should be able to set and get createdOn', () => {

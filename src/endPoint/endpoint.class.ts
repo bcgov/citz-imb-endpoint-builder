@@ -1,19 +1,29 @@
-import { createController } from '@/controller';
+import { Controller, createController } from '@/controller';
 import { createRouter } from '@/router';
-import { createRepository } from '@/repository';
+import { createRepository, Repository } from '@/repository';
 import express from 'express';
 import { DataSource } from 'typeorm';
-import { createService } from '..';
+import { BaseEntity, createService, Service } from '..';
 
-export class Endpoint<TEntity> {
+export class Endpoint<TEntity extends BaseEntity> {
+  router: express.Router;
   routes: express.Router;
+  private repository: Repository<TEntity>;
+  private service: Service<TEntity>;
+  private controller: Controller<TEntity>;
+  path: string;
 
-  constructor(entity: TEntity, dataSource: DataSource) {
-    const dataRepository = createRepository<TEntity>(entity, dataSource);
-    const dataService = createService<TEntity>(dataRepository);
-    const dataController = createController<TEntity>(dataService);
-    const router = createRouter<TEntity>(dataController);
-
-    this.routes = router;
+  constructor(
+    private readonly entity: TEntity,
+    private readonly dataSource: DataSource,
+  ) {
+    this.entity = entity;
+    this.path = entity.constructor.name.toLowerCase();
+    this.dataSource = dataSource;
+    this.repository = createRepository<TEntity>(entity, dataSource);
+    this.service = createService<TEntity>(this.repository);
+    this.controller = createController<TEntity>(this.service);
+    this.router = createRouter<TEntity>(this.path, this.controller);
+    this.routes = this.router;
   }
 }
