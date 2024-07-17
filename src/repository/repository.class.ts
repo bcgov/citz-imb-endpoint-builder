@@ -1,45 +1,48 @@
-import { DataSource, EntitySchema, Repository as ORMRepository } from 'typeorm';
+import { TEntityWithoutId } from '@/types';
+import { DataSource, EntitySchema, FindOptionsWhere, Repository as ORMRepository } from 'typeorm';
 
 export class Repository<TEntity> {
   private repository: ORMRepository<EntitySchema<TEntity>>;
 
-  getAllItems: () => Promise<EntitySchema<TEntity>[]>;
-
-  getItemById: (_id: string) => Promise<EntitySchema<TEntity> | null>;
-
-  getItemByWhere: (_where: object) => Promise<EntitySchema<TEntity> | null>;
-
-  createItem: (_item: EntitySchema<TEntity>) => Promise<EntitySchema<TEntity>>;
-
-  updateItemById: (
-    _id: string,
-    _item: EntitySchema<TEntity>,
-  ) => Promise<EntitySchema<TEntity> | undefined>;
-
-  deleteItemById: (_id: string) => Promise<void>;
-
-  constructor(entity: TEntity, dataSource: DataSource) {
-    this.repository = dataSource.getRepository(entity as EntitySchema<TEntity>) as ORMRepository<
-      EntitySchema<TEntity>
-    >;
-
-    this.getAllItems = async () => await this.repository.find();
-
-    this.getItemById = async (id) => await this.repository.findOne({ where: { id } } as object);
-
-    this.getItemByWhere = async (where) => await this.repository.findOne({ where });
-
-    this.createItem = async (item) => await this.repository.save(item);
-
-    this.updateItemById = async (id, item) => {
-      const existingItem = await this.repository.findOne({ where: { id } } as object);
-      if (!existingItem) return undefined;
-      Object.assign(existingItem, item);
-      return await this.repository.save(existingItem);
-    };
-
-    this.deleteItemById = async (id) => {
-      await this.repository.delete(id);
-    };
+  constructor(
+    private readonly entity: TEntity,
+    private readonly dataSource: DataSource,
+  ) {
+    this.entity = entity;
+    this.dataSource = dataSource;
+    this.repository = this.dataSource.getRepository(
+      this.entity as EntitySchema<TEntity>,
+    ) as ORMRepository<EntitySchema<TEntity>>;
   }
+
+  public getAllItems = async () => (await this.repository.find()) as TEntity[];
+
+  public getItemById = async (id: string) => {
+    const findOneResult = await this.repository.findOne({ where: { id } } as object);
+    if (!findOneResult) return null;
+    return findOneResult as TEntity;
+  };
+
+  getItemByWhere = async (where: FindOptionsWhere<TEntity>[] | FindOptionsWhere<TEntity>) => {
+    const findOneResult = await this.repository.findOne({ where });
+    if (!findOneResult) return null;
+    return findOneResult as TEntity;
+  };
+
+  createItem = async (item: TEntityWithoutId<TEntity>) =>
+    (await this.repository.save(item)) as TEntity;
+
+  updateItemById = async (id: string, item: Partial<TEntity>) => {
+    const findOneResult = await this.repository.findOne({ where: { id } } as object);
+
+    if (!findOneResult) return null;
+
+    Object.assign(findOneResult, item);
+    return (await this.repository.save(findOneResult)) as TEntity;
+  };
+
+  deleteItemById = async (id: string) => {
+    await this.repository.delete(id);
+    return null;
+  };
 }
