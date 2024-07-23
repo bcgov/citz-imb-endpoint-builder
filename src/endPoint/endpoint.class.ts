@@ -1,9 +1,10 @@
 import { Controller, createController } from '@/controller';
-import { createRouter } from '@/router';
+import { BaseEntity } from '@/entities/BaseEntity.class';
 import { createRepository, Repository } from '@/repository';
+import { createRouter } from '@/router';
+import { createService, Service } from '@/service';
 import express from 'express';
 import { DataSource } from 'typeorm';
-import { BaseEntity, createService, Service } from '..';
 
 export class Endpoint<TEntity extends BaseEntity> {
   router: express.Router;

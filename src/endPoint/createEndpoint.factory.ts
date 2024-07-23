@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { BaseEntity } from '..';
+import { BaseEntity } from '@/entities/BaseEntity.class';
 import { Endpoint } from './endpoint.class';
 import { DataSource } from 'typeorm';
 
