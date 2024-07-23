@@ -20,5 +20,5 @@
     "experimentalDecorators": true
   },
   "include": ["src", "__tests__", "package.json"],
-  "exclude": ["node_modules", "build", "coverage"]
+  "exclude": ["node_modules", "build", "coverage", "__tests__"]
 }
